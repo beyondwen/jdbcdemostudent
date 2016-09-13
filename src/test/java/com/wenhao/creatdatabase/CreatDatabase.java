@@ -1,5 +1,7 @@
 package com.wenhao.creatdatabase;
 
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -8,13 +10,18 @@ import java.sql.DriverManager;
  */
 public class CreatDatabase {
 
-    public void creatDatabaseByJdbc() {
+    @Test
+    public void creatDatabaseByJdbc() throws Exception {
+        Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://104.224.147.118:3306/", "", "");
+            connection = DriverManager.getConnection
+                    ("jdbc:mysql://youip/student?createDatabaseIfNotExist=true&characterEncoding=UTF-8",
+                            "root", "root");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            connection.close();
         }
     }
 }
