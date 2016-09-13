@@ -7,7 +7,7 @@
           <element id="module-output" name="jdbcdemostudent" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.38" />
         </element>
       </element>
       <element id="directory" name="META-INF">
