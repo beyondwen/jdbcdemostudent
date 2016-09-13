@@ -15,7 +15,7 @@ public class DatabaseConnection {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");//贾
-            connection = DriverManager.getConnection("jdbc:mysql://104.224.147.118:3306/student", "root", "root");//链
+            connection = DriverManager.getConnection("jdbc:mysql://yourid:3306/student", "root", "root");//链
             return connection;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
