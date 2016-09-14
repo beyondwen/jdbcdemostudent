@@ -4,8 +4,6 @@ import com.wenhao.dao.IStudentDAO;
 import com.wenhao.domain.Student;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by lenovo on 2016/09/13.
  */
@@ -21,7 +19,7 @@ public class StudentImplTest {
 
     @Test
     public void get() throws Exception {
-
+        dao.get("32");
     }
 
     @Test

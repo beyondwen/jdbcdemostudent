@@ -6,6 +6,7 @@ import com.wenhao.utils.DatabaseConnection;
 import com.wenhao.utils.ResourceClose;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -88,6 +89,22 @@ public class StudentImpl implements IStudentDAO {
     }
 
     public Student get(String id) {
+        Student student = new Student();
+        try {
+            connection = DatabaseConnection.getConnection();
+            statement = connection.createStatement();
+            String sql = "select * from t_student where id = '31'";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                System.out.println(rs.getString("name"));
+                //student.setName();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ResourceClose.CloseResource(statement, connection);
+        }
+
         return null;
     }
 
