@@ -1,5 +1,6 @@
 package com.wenhao.dao.impl;
 
+import com.mysql.jdbc.StringUtils;
 import com.wenhao.dao.IStudentDAO;
 import com.wenhao.domain.Student;
 import com.wenhao.utils.DatabaseConnection;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2016/9/13 0013.
@@ -23,7 +25,8 @@ public class StudentImpl implements IStudentDAO {
         try {
             connection = DatabaseConnection.getConnection();
             Statement statement = connection.createStatement();
-            String sql = "insert into t_student (id,name,age) value('31','wenhao',10) ";
+            String s = "3333";
+            String sql = "insert into t_student (id,name,age) value("+s+",'wenhao',10) ";
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,27 +1,38 @@
 package com.wenhao.utils;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
 
 /**
  * Created by lenovo on 2016/09/13.
  */
 public class DatabaseConnection {
 
-    public static Connection getConnection() throws SQLException{
+    private static Properties properties = new Properties();
+
+    static {
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties");
+        try {
+            properties.load(inputStream);
+            Class.forName(properties.getProperty("jdbcdriverName"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static Connection getConnection() throws SQLException {
         //贾链欲执事
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");//贾
-            connection = DriverManager.getConnection("jdbc:mysql://yourip:3306/student", "root", "root");//链
-            return connection;
-        } catch (ClassNotFoundException e) {
+            connection = DriverManager.getConnection(properties.getProperty("jdbcurl"), properties.getProperty("jdbcname"), properties.getProperty("jdbcpassword"));//链
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //connection.close();
+            return connection;
         }
-        return null;
     }
 }
