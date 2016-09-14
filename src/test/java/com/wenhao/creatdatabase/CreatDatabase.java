@@ -2,7 +2,6 @@ package com.wenhao.creatdatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 /**
@@ -13,7 +12,7 @@ public class CreatDatabase {
     public void creatDatabaseByJdbc() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://104.224.147.118:3306/", "", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://youip:3306/", "", "");
             Statement statement = connection.createStatement();
 
         } catch (Exception e) {
