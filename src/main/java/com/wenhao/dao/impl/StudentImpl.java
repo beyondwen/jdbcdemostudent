@@ -4,12 +4,10 @@ import com.mysql.jdbc.StringUtils;
 import com.wenhao.dao.IStudentDAO;
 import com.wenhao.domain.Student;
 import com.wenhao.utils.DatabaseConnection;
+import com.wenhao.utils.JdbcUtils;
 import com.wenhao.utils.ResourceClose;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Random;
 
@@ -22,31 +20,20 @@ public class StudentImpl implements IStudentDAO {
     private Statement statement;
 
     public void save(Student student) {
+
+        connection = JdbcUtils.INSTANCE.getConnection();
+        String sql = "insert into t_student (id,name,age) value(?,?,?) ";
         try {
-            connection = DatabaseConnection.getConnection();
-            Statement statement = connection.createStatement();
-            String s = "3333";
-            String sql = "insert into t_student (id,name,age) value("+s+",'wenhao',10) ";
-            statement.execute(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString((int) 1, "193");
+            preparedStatement.setString((int) 2, "ddd");
+            preparedStatement.setInt((int) 3, 22);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            JdbcUtils.INSTANCE.CloseResource(statement, connection);
         }
-
 
     }
 
