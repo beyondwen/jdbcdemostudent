@@ -4,6 +4,8 @@ import com.wenhao.dao.IStudentDAO;
 import com.wenhao.domain.Student;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2016/09/13.
  */
@@ -19,12 +21,16 @@ public class StudentImplTest {
 
     @Test
     public void get() throws Exception {
-        dao.get("32");
+        Student student = dao.get("31");
+        System.out.println(student);
     }
 
     @Test
     public void getAll() throws Exception {
-
+        List<Student> list = dao.getAll();
+        for (Student s : list) {
+            System.out.println(s);
+        }
     }
 
     @Test

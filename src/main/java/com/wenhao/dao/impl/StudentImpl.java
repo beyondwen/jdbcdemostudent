@@ -1,6 +1,5 @@
 package com.wenhao.dao.impl;
 
-import com.mysql.jdbc.StringUtils;
 import com.wenhao.dao.IStudentDAO;
 import com.wenhao.domain.Student;
 import com.wenhao.utils.DatabaseConnection;
@@ -8,8 +7,8 @@ import com.wenhao.utils.JdbcUtils;
 import com.wenhao.utils.ResourceClose;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2016/9/13 0013.
@@ -83,11 +82,13 @@ public class StudentImpl implements IStudentDAO {
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.createStatement();
-            String sql = "select * from t_student where id = '31'";
+            String sql = "select * from t_student where id = " + id + "";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 System.out.println(rs.getString("name"));
-                //student.setName();
+                student.setId(rs.getString("id"));
+                student.setName(rs.getString("name"));
+                student.setAge(rs.getInt("age"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,10 +96,27 @@ public class StudentImpl implements IStudentDAO {
             ResourceClose.CloseResource(statement, connection);
         }
 
-        return null;
+        return student;
     }
 
     public List<Student> getAll() {
-        return null;
+
+        List<Student> list = new ArrayList<Student>();
+        connection = JdbcUtils.INSTANCE.getConnection();
+        String sql = "select * from t_student";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getString("id"));
+                student.setName(resultSet.getString("name"));
+                student.setAge(resultSet.getInt("age"));
+                list.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
